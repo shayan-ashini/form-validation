@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <title>form</title>
+</head>
+
+<body>
+
+    <main>
+
+        <section>
+            <div id="create-w">
+                <div class="top-head">
+                    <h1>Create Account</h1>
+                    <div class="icon">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-gplus"></i>
+                        <i class="icon-linkedin"></i>
+                    </div>
+                    <span>or use your email for registration
+                    </span>
+
+                </div>
+                <form action="login.php" id="create" method="get" name="login">
+                    <input type="text" placeholder="Username" id="username" name="username">
+                    <span id="span1"></span>
+                    <input type="text" placeholder="Email" id="email" name="email">
+                    <span id="span2"></span>
+                    <input type="password" placeholder="Password" id="password" name="pass">
+                    <span id="line"></span>
+                    <button id="sign-btn1">SIGN UP</button>
+                </form>
+            </div>
+            <div id="create-r">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button id="sign-btn2">SIGN IN</button>
+            </div>
+            <div id="Sign-w">
+                <div class="top-head">
+                    <h1>Sign in</h1>
+                    <div class="icon">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-gplus"></i>
+                        <i class="icon-linkedin"></i>
+                    </div>
+                    <span>or use your account
+                    </span>
+
+                </div>
+                <form action="" id="signin">
+                    <input type="email" placeholder="Email">
+                    <input type="text" placeholder="Password">
+                    <span>Forgot your password?
+                    </span>
+                    <button id="sign-btn3">SIGN IN</button>
+                </form>
+
+            </div>
+            <div id="Sign-r">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start <br> journey with us</p>
+                <button id="sign-btn4">SIGN UP</button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <script>
+        let _sign1 = document.getElementById('sign-btn1')
+        let _sign2 = document.getElementById('sign-btn2')
+        let _sign3 = document.getElementById('sign-btn3')
+        let _sign4 = document.getElementById('sign-btn4')
+
+        let _create1 = document.getElementById('create-w')
+        let _create2 = document.getElementById('create-r')
+
+        let __sign1 = document.getElementById('Sign-w')
+        let __sign2 = document.getElementById('Sign-r')
+
+        let name = document.getElementById('username')
+        let email = document.getElementById('email')
+        let password = document.getElementById('password')
+
+
+
+        _sign2.addEventListener('click', function () {
+            _create2.style.transform = 'translateX(100%)'
+            _create1.style.transform = 'translateX(-100%)'
+            __sign2.style.transform = 'translateX(100%)'
+            __sign2.style.zIndex = "2";
+            __sign1.style.transform = 'translateX(-100%)'
+            __sign1.style.zIndex = "2";
+
+        })
+
+
+        _sign4.addEventListener('click', function () {
+            _create2.style.transform = 'translateX(0%)'
+            _create1.style.transform = 'translateX(0%)'
+            __sign2.style.transform = 'translateX(0%)'
+            __sign2.style.zIndex = "0";
+            __sign1.style.transform = 'translateX(0%)'
+            __sign1.style.zIndex = "0";
+
+        })
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+        let span1 = document.getElementById('span1')
+        let span2 = document.getElementById('span2')
+
+        let create_form = document.getElementById('create')
+        let signup_form = document.getElementById('signup')
+
+
+        create_form.addEventListener('submit', function (event) {
+            let flag = 0
+
+            let name = document.forms['login']['username'].value
+            let email = document.forms['login']['email'].value
+            let password = document.forms['login']['pass'].value
+
+            span1.innerHTML = ''
+            span2.innerHTML = ''
+            document.getElementById('line').innerHTML = ''
+
+
+            if (
+                name == '' || name == null || (name.search(/<script/)) >= 0
+            ) {
+                span1.innerHTML = 'enter valid '
+                flag++
+
+            }
+            if (name.length < 8) {
+                span1.innerHTML = 'At least 8 characters'
+                flag++
+            }
+
+
+
+            // end name//////////////////////////////////////////////////////////////////////
+            let _match = email.match(/@/g)
+
+            if (
+                email == '' || email == null || (email.search(/<script/)) >= 0
+            ) {
+                span2.innerHTML = 'enter valid '
+                flag++
+
+            } else {
+                if (
+                    ((email.search(/@/)) < 3) ||
+                    ((email.search(/[ا-ی]/)) >= 0) ||
+                    ((email.search(/[!><?";*&^%$#~]/)) >= 0) ||
+                    (email.length) < 10 ||
+                    (_match.length) > 1
+                ) {
+                    span2.innerHTML = 'Enter the correct value'
+                    flag++
+                }
+
+
+            }
+
+            // end email/////////////////////////////////////////////////////////////////////////
+
+
+            if (
+                password == '' || password == null || (password.search(/<script/)) >= 0
+            ) {
+                document.getElementById('line').innerHTML = 'enter password'
+                flag++
+
+            } else {
+                if (
+                    (password.search(/[A-Z]/)) == -1 ||
+                    (password.search(/[a-z]/)) == -1 ||
+                    (password.search(/[ا-ی]/)) >= 0 ||
+                    password.length < 5 ||
+                    (password.search(/[~!@#$%^&*(.)_+?<`]/)) == -1
+
+                ) {
+                    document.getElementById('line').innerHTML = 'your password invalid';
+
+                    flag++
+
+                }
+            }
+
+            /////////////////////////////form action ////////////////////////////////////////////////////////
+
+
+            if (flag > 0) {
+                event.preventDefault()
+
+            }
+
+        })
+    </script>
+
+
+
+</body>
+
+</html>
